@@ -1,0 +1,44 @@
+
+import urllib
+import requests
+from bs4 import BeautifulSoup
+
+
+club_list = ['AC HOTEL', 'Balmoral Hotel', 'Benedicts', 'City Backpacker', 'Clayton Hotel', 'La Mon', 'Easy Hotel'
+             'Culloden Estate and Spa', 'Dukes at Queens', 'ETAP Belfast', 'Europa Hotel', 'Grand Central Hotel',
+             'Hampton by Hilton', 'Hilton Belfast', 'Holiday Inn Belfast City Centre', 'Hotel Marquis', 'House Belfast',
+             'Holiday Inn Express Belfast City', 'Ibis Belfast City Centre', 'Jurys Inn', 'Ibis Belfast Queens Quarter',
+             'Madison\'s Hotel', 'Landsdowne', 'Maldron', 'Malone Lodge Hotel', 'Malmaison', 'Parador',
+             'Plaza Hotel Belfast', 'Park Inn', 'Premier Inn Belfast City Cathedral', 'Premier Inn Titanic Quarter',
+             'Ten Square Hotel', 'The Crescent Townhouse', 'The Fitzwilliam Hotel', 'The George Best Hotel',
+             'Flint', 'Radisson Blu', 'The Gregory', 'The Merchant Hotel', 'The Harrison Chambers of Disctinction',
+             'The Park Avenue Hotel', 'Titanic Hotel', 'The Waring', 'Travelodge Befast Central',
+             'Wellington Park Hotel', 'Vagabonds',
+             ]
+#
+number = "phone number"
+brand = "hotel"
+city = "belfast"
+
+# URL = f"https://google.com/search?q={query}"
+
+for club in club_list:
+    search = number + club + brand + city
+    query = search.replace(' ', '+')
+    URL = f"https://google.com/search?q={search}"
+
+
+USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:65.0) Gecko/20100101 Firefox/65.0"
+
+headers = {"user-agent" : USER_AGENT}
+resp = requests.get(URL, headers=headers)
+
+if resp.status_code == 200:
+    soup = BeautifulSoup(resp.content, "html.parser")
+
+# results = []
+# search = html.find("<title>")
+
+# return = tree.xpath('//span[@class="item-price"]/text()')
+returns = URL.find('//span[@class="mw31Ze"]/role="link">')
+print(returns)
